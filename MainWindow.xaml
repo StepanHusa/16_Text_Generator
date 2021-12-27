@@ -7,23 +7,29 @@
         mc:Ignorable="d"
         Title="Text Generator" Height="450" Width="400"  >
     <Grid>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
 
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
 
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <TextBlock  x:Name="date" Grid.Column="0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <Button Content="Date" Grid.Column="1" Click="Button_Click" FontSize="30"/>
+            <TextBlock  x:Name="date" Grid.Column="0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="Date" Grid.Column="1" Click="Button_Click" FontSize="30"/>
 
-    </Grid>
+            <TextBlock  x:Name="time"  Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="Time"     Grid.Row="1" Grid.Column="1" Click="Button_Click_2" FontSize="30"/>
+
+            <TextBlock  x:Name="filename"  Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="FileName"     Grid.Row="2" Grid.Column="1" Click="Button_Click_3" FontSize="30"/>
+
+        </Grid>
         <Button Content=" Stay Alive" Click="Button_Click_1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" />
     </Grid>
 </Window>
