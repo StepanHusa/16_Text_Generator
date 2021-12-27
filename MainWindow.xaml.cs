@@ -25,9 +25,12 @@ namespace _16_Text_Generator
     public partial class MainWindow : Window
     {
         private static System.Timers.Timer timer = new System.Timers.Timer();
+        IntPtr activeAppWindow;
 
         public MainWindow()
         {
+            activeAppWindow = GetForegroundWindow();
+
             InitializeComponent();
 
             date.Text = DateTime.Now.ToShortDateString();
@@ -42,7 +45,8 @@ namespace _16_Text_Generator
             timer.Start();
 
             this.WindowState = WindowState.Minimized;
-            FocusToPreviousWindow();
+            if (activeAppWindow != IntPtr.Zero)
+                SetForegroundWindow(activeAppWindow);
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -58,6 +62,7 @@ namespace _16_Text_Generator
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             timer.Stop();
+
         }
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
@@ -74,13 +79,6 @@ namespace _16_Text_Generator
         }
         #region focus property
 
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool IsWindowVisible(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        static extern IntPtr GetLastActivePopup(IntPtr hWnd);
-
         [DllImport("user32.dll", ExactSpelling = true)]
         static extern IntPtr GetForegroundWindow();
 
@@ -88,27 +86,12 @@ namespace _16_Text_Generator
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        const uint GA_PARENT = 1;
-        const uint GA_ROOT = 2;
-        const uint GA_ROOTOWNER = 3;
-
-        public IntPtr GetPreviousWindow()
-        {
-            IntPtr activeAppWindow = GetForegroundWindow();
-            if (activeAppWindow == IntPtr.Zero)
-                return IntPtr.Zero;
-
-            IntPtr prevAppWindow = GetLastActivePopup(activeAppWindow);
-            return IsWindowVisible(prevAppWindow) ? prevAppWindow : IntPtr.Zero;
-        }
-
-        public void FocusToPreviousWindow()
-        {
-            IntPtr prevWindow = GetPreviousWindow();
-            if (prevWindow != IntPtr.Zero)
-                SetForegroundWindow(prevWindow);
-        }
         #endregion
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SetForegroundWindow(activeAppWindow);
+        }
     }
 }
 

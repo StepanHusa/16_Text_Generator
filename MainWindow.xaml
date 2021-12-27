@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_16_Text_Generator"
         mc:Ignorable="d"
-        Title="Text Generator" Height="450" Width="400"  >
+        Title="Text Generator" Height="450" Width="400" Closing="Window_Closing" >
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
