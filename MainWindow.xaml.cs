@@ -26,6 +26,8 @@ namespace _16_Text_Generator
     {
         private static System.Timers.Timer timer = new System.Timers.Timer();
         IntPtr activeAppWindow;
+        private object clip;
+        private string format;
 
         public MainWindow()
         {
@@ -36,7 +38,7 @@ namespace _16_Text_Generator
             date.Text = DateTime.Now.ToShortDateString();
             time.Text = DateTime.Now.ToShortTimeString();
 
-
+            SaveClipboard();
             Clipboard.SetText(DateTime.Now.ToShortDateString()+"_"+DateTime.Now.ToShortTimeString());
 
 
@@ -47,6 +49,42 @@ namespace _16_Text_Generator
             this.WindowState = WindowState.Minimized;
             if (activeAppWindow != IntPtr.Zero)
                 SetForegroundWindow(activeAppWindow);
+        }
+        private void SaveClipboard()
+        {
+
+            if (Clipboard.ContainsAudio()) {
+                clip = Clipboard.GetAudioStream();
+                format = "WaveAudio";
+                previousClipboardData.Text = "WaveAudio";
+
+            }
+            else if (Clipboard.ContainsFileDropList()) {
+                clip = Clipboard.GetFileDropList();
+                format = "FileDrop";
+                previousClipboardData.Text = "FileDrop";
+
+            }
+            else if (Clipboard.ContainsImage()) {
+                clip = Clipboard.GetImage();
+                format = "Bitmap";
+                previousClipboardData.Text = "Bitmap";
+            }
+            else if (Clipboard.ContainsText()) {
+                clip = Clipboard.GetText();
+                format = "Text";
+                previousClipboardData.Text = clip as string;
+            }
+
+
+        }
+        private void SetClipboard()
+        {
+            if (clip != null)
+            {
+                Clipboard.SetData(format, clip); previousClipboardData.Text = "returned";
+            }
+            else previousClipboardData.Text = "error returning null data";
         }
 
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -91,6 +129,11 @@ namespace _16_Text_Generator
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SetForegroundWindow(activeAppWindow);
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            SetClipboard();
         }
     }
 }

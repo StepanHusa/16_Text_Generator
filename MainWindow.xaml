@@ -5,18 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_16_Text_Generator"
         mc:Ignorable="d"
-        Title="Text Generator" Height="450" Width="400" Closing="Window_Closing" >
+       x:Name="thiss" Title="Text Generator" Height="450" Width="400" Closing="Window_Closing" >
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
+                
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
-
+                <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
@@ -28,6 +29,9 @@
 
             <TextBlock  x:Name="filename"  Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button Content="FileName"     Grid.Row="2" Grid.Column="1" Click="Button_Click_3" FontSize="30"/>
+
+            <TextBlock  x:Name="previousClipboardData"  Grid.Row="3" Grid.Column="0" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="Previous Clipboard Data"     Grid.Row="3" Grid.Column="1" Click="Button_Click_4" FontSize="16"/>
 
         </Grid>
         <Button Content=" Stay Alive" Click="Button_Click_1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10" />
