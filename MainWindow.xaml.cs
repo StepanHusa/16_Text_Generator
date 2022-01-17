@@ -39,7 +39,10 @@ namespace _16_Text_Generator
             time.Text = DateTime.Now.ToShortTimeString();
 
             SaveClipboard();
-            Clipboard.SetText(DateTime.Now.ToShortDateString()+"_"+DateTime.Now.ToShortTimeString());
+
+            string s = DateTime.Now.ToShortDateString() + "_" + DateTime.Now.ToShortTimeString();
+            s = s.Replace(':','-') ;
+            Clipboard.SetText(s);
 
 
             timer.Interval = 20000; //5 sec
